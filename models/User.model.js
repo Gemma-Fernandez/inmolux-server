@@ -23,7 +23,7 @@ const userSchema = new Schema(
       enum: ["user", "admin"],
       default: "user"
     },
-    likes: [{type: Schema.Types.ObjectId, ref: 'Viviendas'}]
+    wishlist: [{type: Schema.Types.ObjectId, ref: 'Vivienda'}]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
