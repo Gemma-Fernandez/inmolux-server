@@ -18,6 +18,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Username required.']
     },
+    profile_picture: {
+     type:String
+    },
     role: {
       type: String,
       enum: ["user", "admin"],
@@ -34,3 +37,5 @@ const userSchema = new Schema(
 const User = model("User", userSchema);
 
 module.exports = User;
+
+

@@ -41,9 +41,9 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-//POST- /api7auth/login
-router.post("/login", async (req, res, nest) => {
-    const { email, passord} = req.body
+//POST- /api/auth/login
+router.post("/login", async (req, res, next) => {
+    const { email, password} = req.body
     
     if(!email || !password) {
         res.status(400).json({message: "Todos los campos son requeridos"})
