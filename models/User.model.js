@@ -19,7 +19,7 @@ const userSchema = new Schema(
       required: [true, 'Username required.']
     },
     profile_picture: {
-     type:String
+     type:String,
     },
     role: {
       type: String,

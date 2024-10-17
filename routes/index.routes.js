@@ -17,5 +17,8 @@ router.use("/vivienda", viviendaRouter);
 const solicitudRouter= require("./solicitaciones.routes")
 router.use("/solicitud", solicitudRouter)
 
+const uploadRoutes = require("./upload.routes");
+router.use("/upload", uploadRoutes);
+
 
 module.exports = router;

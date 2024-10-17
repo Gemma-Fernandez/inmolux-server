@@ -3,11 +3,22 @@ const router=express.Router();
 const {verifyToken} = require("../middlewares/auth.middlewares.js")
 
 const User= require("../models/User.model");
+//GET - All users
+router.get("/", verifyToken, async (req, res, next)=>{
+    try {
+        const response = await User.find()
+        res.status(200).json(response);
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 //GET- /api/user/:userId
 router.get("/:userId", verifyToken, async (req, res, next)=>{
     try {
-        const response = await User.findById(req.params.id);
+        const response = await User.findById(req.params.userId)
         res.status(200).json(response);
         
     } catch (error) {
