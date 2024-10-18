@@ -14,6 +14,19 @@ router.get("/", verifyToken, async (req, res, next)=>{
     }
 });
 
+//GET- /api/user/profile
+router.get("/profile", verifyToken, async(req, res, next) => {
+    
+    try{
+        const { _id, username, profile_image, email, role, wishlist } = req.payload;
+    res.status(200).json({
+        message: "Datos de usuario",
+        user: { _id, username, profile_image, email, role, wishlist }
+    })
+}catch(error){
+    next(error)
+}
+})
 
 //GET- /api/user/:userId
 router.get("/:userId", verifyToken, async (req, res, next)=>{
@@ -49,6 +62,60 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
       next(error)
     }
   })
+
+  //new routes 
+  router.patch("/profile", verifyToken, async (req, res, next) => {
+    try {
+  
+      
+      const { email} = req.body;
+  
+      
+      const updatedUser = await User.findByIdAndUpdate(
+        req.payload._id,
+        { email},
+        { new: true } 
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      res.status(200).json({
+        message: 'Email actualizado',
+        user: updatedUser
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  router.patch("/profile", verifyToken, async (req, res, next) => {
+    try {
+  
+      
+      const {username} = req.body;
+  
+      
+      const updatedUser = await User.findByIdAndUpdate(
+        req.payload._id,
+        {username},
+        { new: true } 
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      res.status(200).json({
+        message: 'Email actualizado',
+        user: updatedUser
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
 
 
 module.exports=router;

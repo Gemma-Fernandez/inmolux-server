@@ -8,7 +8,8 @@ const {verifyToken, verifyAdmin} = require("../middlewares/auth.middlewares.js")
 
 //POST- /auth/signup
 router.post("/signup", async (req, res, next) => {
-  const { email, password, username} = req.body; //FALTA USAR ROLE
+  console.log(req.body)
+  const { email, password, username, profile_image} = req.body; //FALTA USAR ROLE
   if (!email || !password || !username) {
     res.status(400).json({ message: "Todos los campos sonrequeridos" });
     return;
@@ -32,6 +33,7 @@ router.post("/signup", async (req, res, next) => {
         email,
         password: hashPassword,
         username,
+        profile_image
     })
 
     res.sendStatus(201)
@@ -68,7 +70,10 @@ router.post("/login", async (req, res, next) => {
     const payload = {
         _id: foundUser._id,
         email: foundUser.email,
-        role: foundUser.role
+        role: foundUser.role,
+        username: foundUser.username,
+        profile_image: foundUser.profile_image,
+        wishlist: foundUser.wishlist
     }
 
     const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {

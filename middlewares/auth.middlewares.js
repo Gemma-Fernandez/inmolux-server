@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+  
 
 function verifyToken(req, res, next) {
     
@@ -8,6 +9,7 @@ function verifyToken(req, res, next) {
 
  const payload = jwt.verify(token, process.env.TOKEN_SECRET)
 
+ console.log('Payload decodificado:', payload)
  req.payload = payload
 
  next()

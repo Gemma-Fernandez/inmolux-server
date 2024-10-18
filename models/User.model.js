@@ -18,8 +18,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Username required.']
     },
-    profile_picture: {
+    profile_image: {
      type:String,
+     required: [true, 'Image required.']
     },
     role: {
       type: String,
