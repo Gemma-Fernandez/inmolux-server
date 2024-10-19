@@ -23,7 +23,7 @@ router.get("/:viviendasId", async (req, res, next) => {
 });
 
 //post add nueva vivienda
-router.post("/", verifyToken, verifyAdmin, async (req, res, next) => {
+router.post("/addVivienda", verifyToken, verifyAdmin, async (req, res, next) => {
   try {
     const response = await Vivienda.create({
       name: req.body.name,
