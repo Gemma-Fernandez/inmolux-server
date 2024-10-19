@@ -55,8 +55,13 @@ router.put("/:userId", verifyToken, async(req, res, next)=>{
 //user populate(vivendasId)
 router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
     try {
-        const response = await User.find({wishlist: req.params.viviendasId})
+      const { viviendasId } = req.params;
+        const response = await User.find({wishlist: viviendasId})
         .populate('wishlist')
+
+        if(response.length === 0) {
+          return res.status(404).json({message: 'Esta vivienda aún no se ha añadido a ninguna whishlist :( ).'})
+        }
      res.status(200).json(response)
     }catch(error) {
       next(error)
@@ -64,7 +69,7 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
   })
 
   //new routes 
-  router.patch("/profile", verifyToken, async (req, res, next) => {
+  router.patch("/profile/email", verifyToken, async (req, res, next) => {
     try {
   
       
@@ -90,7 +95,7 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
     }
   });
 
-  router.patch("/profile", verifyToken, async (req, res, next) => {
+  router.patch("/profile/username", verifyToken, async (req, res, next) => {
     try {
   
       
@@ -116,6 +121,44 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
     }
   });
 
+  //----------wishList----------
 
+  router.post("/profile/wishlist", verifyToken, async (req, res, next) => {
+    try {
+    
+    const {viviendasId} =req.body;
+    const userId = req.payload._id;
+
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { wishlist: viviendasId } }, 
+        { new: true }
+      ).populate('wishlist');
+  
+
+      res.status(200).json({wishlist: updatedUser.wishlist });
+    }catch (error) {
+      console.log(error)
+    }
+  })
+
+  //delete wishlist
+  router.delete("/profile/wishlist/:viviendasId", verifyToken, async (req, res, next) => {
+    try {
+      const { viviendasId } = req.params;
+      const userId = req.payload._id;
+  
+     
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $pull: { wishlist: viviendasId } },
+        { new: true }
+      ).populate('wishlist');
+  
+      res.status(200).json({ wishlist: updatedUser.wishlist });
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports=router;
