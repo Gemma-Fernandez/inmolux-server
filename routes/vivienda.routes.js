@@ -57,7 +57,7 @@ router.delete(
 );
 
 //PUT- actualizar una vivienda especifica
-router.put("/:viviendasId", verifyToken, verifyAdmin, async (req, res, next) => {
+router.put("/:viviendasId/edit", verifyToken, verifyAdmin, async (req, res, next) => {
   try {
     const response = await Vivienda.findByIdAndUpdate(
       req.params.viviendasId,
