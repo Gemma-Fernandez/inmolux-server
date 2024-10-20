@@ -3,6 +3,7 @@ const router=express.Router();
 const {verifyToken} = require("../middlewares/auth.middlewares.js")
 
 const User= require("../models/User.model");
+const Vivienda = require("../models/Vivienda.js")
 //GET - All users
 router.get("/", verifyToken, async (req, res, next)=>{
     try {
@@ -123,6 +124,8 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
 
   //----------wishList----------
 
+  
+
   router.post("/profile/wishlist", verifyToken, async (req, res, next) => {
     try {
     
@@ -160,5 +163,30 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
       next(error);
     }
   });
+
+
+  router.get('/wishlist/vivienda', verifyToken, async (req, res, next) => {
+    try {
+     
+      const userId = req.payload._id;
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User no encontrado.' });
+      }
+  
+      const wishlistIds = user.wishlist; 
+  
+      if (wishlistIds.length === 0) {
+        return res.status(200).json({ message: 'wishlist vacia!' });
+      }
+      const viviendas = await Vivienda.find({ _id: { $in: wishlistIds } });
+  
+      res.status(200).json(viviendas); 
+    } catch (error) {
+      next(error);
+    }
+  });
+
 
 module.exports=router;
