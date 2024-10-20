@@ -7,7 +7,9 @@ const viviendaSchema = new Schema({
   property_type: { type: String, required: [true, "Property Type required."] },
   bathrooms: { type: String, required: [true, "Bathrooms required."] },
   bedrooms: { type: String, required: [true, "Bedroom required."] },
-  image: { type: String, required: [true, "Image required"] },
+  image1: { type: String, required: [true, "Image required"] },
+  image2: { type: String },
+  image3: { type: String },
   price: { type: Number, required: [true, "Price required"] },
 });
 

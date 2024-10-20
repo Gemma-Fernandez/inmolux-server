@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Vivienda = require("../models/Vivienda");
 const { verifyToken, verifyAdmin } = require("../middlewares/auth.middlewares.js");
+
 //mostrar viviendas
 router.get("/", async (req, res, next) => {
   try {
@@ -32,7 +33,9 @@ router.post("/addVivienda", verifyToken, verifyAdmin, async (req, res, next) => 
       property_type: req.body.property_type,
       bathrooms: req.body.bathrooms,
       bedrooms: req.body.bedrooms,
-      image: req.body.image,
+      image1: req.body.image1,
+      image2: req.body.image2,
+      image3: req.body.image3,
       price: req.body.price,
     });
     res.status(201).json(response);
@@ -68,7 +71,9 @@ router.put("/:viviendasId/edit", verifyToken, verifyAdmin, async (req, res, next
         property_type: req.body.property_type,
         bathrooms: req.body.bathrooms,
         bedrooms: req.body.bedrooms,
-        image: req.body.image,
+        image1: req.body.image1,
+        image2: req.body.image2,
+        image3: req.body.image3,    
         price: req.body.price,
       },
       { new: true }
