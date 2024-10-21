@@ -189,4 +189,6 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
       next(error);
     }
   });
+
+
 module.exports=router;
