@@ -9,6 +9,8 @@ const Solicitud= require("../models/Solicitud");
 router.get("/", verifyToken, verifyAdmin, async (req, res, next)=>{
     try {
         const response= await Solicitud.find()
+        .populate("vivienda", "name city")
+        .populate("user", "username email")
         res.status(202).json(response);
     } catch (error) {
         next(error)
@@ -16,14 +18,23 @@ router.get("/", verifyToken, verifyAdmin, async (req, res, next)=>{
 })
 
 //POST- añadir una nueva solicitud
-router.post("/", verifyToken, verifyAdmin, async (req, res, next)=>{
+router.post("/", verifyToken, async (req, res, next)=>{
     try {
-        const response= await Solicitud.create({
+
+        
+       
+        
+        let newSolicitud= await Solicitud.create({
             vivienda: req.body.vivienda,
-            user: req.body.user,
+            user: req.payload._id,
             message: req.body.message
         });
-        res.status(201).json(response);
+
+        //newSolicitud = await newSolicitud
+        //.populate("vivienda", "name city")
+        //.populate("user", "username email")
+        
+        res.sendStatus(201)
     } catch (error) {
         next(error)
     }

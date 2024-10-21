@@ -4,6 +4,8 @@ const {verifyToken} = require("../middlewares/auth.middlewares.js")
 
 const User= require("../models/User.model");
 const Vivienda = require("../models/Vivienda.js")
+const Solicitud= require("../models/Solicitud")
+
 //GET - All users
 router.get("/", verifyToken, async (req, res, next)=>{
     try {
@@ -187,6 +189,4 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
       next(error);
     }
   });
-
-
 module.exports=router;

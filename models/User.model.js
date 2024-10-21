@@ -16,7 +16,8 @@ const userSchema = new Schema(
     },
     username: {
       type: String,
-      required: [true, 'Username required.']
+      required: [true, 'Username required.'],
+      unique: true
     },
     profile_image: {
      type:String,
@@ -27,7 +28,8 @@ const userSchema = new Schema(
       enum: ["user", "admin"],
       default: "user"
     },
-    wishlist: [{type: Schema.Types.ObjectId, ref: 'Vivienda'}]
+    wishlist: [{type: Schema.Types.ObjectId, ref: 'Vivienda'}],
+    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
