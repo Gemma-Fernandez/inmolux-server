@@ -21,15 +21,16 @@ router.get("/", verifyToken, verifyAdmin, async (req, res, next) => {
 
 //-----------------Solicitudes-------------
 //GET- recupera todas las solicitudes de un usuario
-router.get("/:userId", verifyToken, async (req, res, next) => {
+router.get("/solicitudes", verifyToken, async (req, res, next) => {
   try {
-    const { userId } = req.params;
-
+    const userId = req.payload._id;
+    
     const response = await Solicitud.find({ user: userId }).populate(
       "vivienda",
       "name city"
     );
-    res.status(202).json(response);
+
+    res.status(200).json(response);
   } catch (error) {
     next(error);
   }
