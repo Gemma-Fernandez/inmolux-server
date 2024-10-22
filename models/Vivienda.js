@@ -11,6 +11,7 @@ const viviendaSchema = new Schema({
   image2: { type: String },
   image3: { type: String },
   price: { type: Number, required: [true, "Price required"] },
+  coordinates: [Number]
 });
 
 const Vivienda = model("Vivienda", viviendaSchema);
