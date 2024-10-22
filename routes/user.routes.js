@@ -171,20 +171,20 @@ router.get('/vivienda/:viviendasId', verifyToken, async (req, res, next) => {
     try {
      
       const userId = req.payload._id;
-      const user = await User.findById(userId);
+      const user = await User.findById(userId).populate("wishlist")
   
       if (!user) {
-        return res.status(404).json({ message: 'User no encontrado.' });
+        return res.status(400).json({ message: 'User no encontrado.' });
       }
   
-      const wishlistIds = user.wishlist; 
+      //const wishlistIds = user.wishlist; 
   
-      if (wishlistIds.length === 0) {
-        return res.status(200).json({ message: 'wishlist vacia!' });
-      }
-      const viviendas = await Vivienda.find({ _id: { $in: wishlistIds } });
+      //if (wishlistIds.length === 0) {
+      //  return res.status(200).json({ message: 'wishlist vacia!' });
+      //}
+      //const viviendas = await Vivienda.find({ _id: { $in: wishlistIds } });
   
-      res.status(200).json(viviendas); 
+      res.status(200).json(user.wishlist); 
     } catch (error) {
       next(error);
     }

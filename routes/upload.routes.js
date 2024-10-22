@@ -1,5 +1,3 @@
-
-
 const router = require("express").Router();
 
 const uploader = require("../middlewares/cloudinary.config.js");
@@ -11,8 +9,9 @@ router.post("/", uploader.single("image"), (req, res, next) => {
   if (!req.file) {
     // this will happend if cloudinary rejects the image for any reason
     res.status(400).json({
-      errorMessage: "There was a problem uploading the image. Check image format and size."
-    })
+      errorMessage:
+        "There was a problem uploading the image. Check image format and size.",
+    });
     return;
   }
 
@@ -20,6 +19,18 @@ router.post("/", uploader.single("image"), (req, res, next) => {
   // 'imageUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend (response.data.imageUrl)
 
   res.json({ imageUrl: req.file.path });
+});
+
+router.post("/multiple", uploader.array("images", 3), (req, res, next) => {
+  if (!req.files || req.files.length === 0) {
+    res.status(400).json({
+      errorMessage: "There was a problem uploading the images. Check image format and size."
+    });
+    return;
+  }
+
+  const imageUrls = req.files.map(file => file.path);
+  res.json({ imageUrls }); 
 });
 
 module.exports = router;

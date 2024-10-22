@@ -3,6 +3,8 @@ const router = express.Router();
 const Vivienda = require("../models/Vivienda");
 const { verifyToken, verifyAdmin } = require("../middlewares/auth.middlewares.js");
 
+
+
 //mostrar viviendas
 router.get("/", async (req, res, next) => {
   try {
@@ -25,7 +27,11 @@ router.get("/:viviendasId", async (req, res, next) => {
 
 //post add nueva vivienda
 router.post("/addVivienda", verifyToken, verifyAdmin, async (req, res, next) => {
+
   try {
+
+    
+
     const response = await Vivienda.create({
       name: req.body.name,
       city: req.body.city,
@@ -33,10 +39,10 @@ router.post("/addVivienda", verifyToken, verifyAdmin, async (req, res, next) => 
       property_type: req.body.property_type,
       bathrooms: req.body.bathrooms,
       bedrooms: req.body.bedrooms,
-      image1: req.body.image1,
+      image1: req.body.image1, 
       image2: req.body.image2,
       image3: req.body.image3,
-      price: req.body.price,
+      price: req.body.price
     });
     res.status(201).json(response);
   } catch (error) {
@@ -71,9 +77,7 @@ router.put("/:viviendasId/edit", verifyToken, verifyAdmin, async (req, res, next
         property_type: req.body.property_type,
         bathrooms: req.body.bathrooms,
         bedrooms: req.body.bedrooms,
-        image1: req.body.image1,
-        image2: req.body.image2,
-        image3: req.body.image3,    
+        images: req.body.images,    
         price: req.body.price,
       },
       { new: true }
