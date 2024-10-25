@@ -93,7 +93,7 @@ Solicitud model
          user: { type: Schema.Types.ObjectId, ref: 'User'},
          message: {type: String, required: [true, 'Message is required.']}
     }
-
+```
 ## API Endpoints (backend routes)
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                    |
