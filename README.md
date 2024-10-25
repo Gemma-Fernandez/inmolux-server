@@ -12,7 +12,7 @@ This project provides the backend for a luxury real estate application, designed
 
 ## Backlog Functionalities
 
--**User roles and permissions**: Improved access control for admin and agent roles.
+- **User roles and permissions**: Improved access control for admin and agent roles.
 - **User Registration and Authentication**: Supports clients and administrators.
 - **Property Management**: Create, edit, and delete luxury properties.
 - **Favorites and saved searches**: Allow users to save properties and search filters.
@@ -28,6 +28,8 @@ This project provides the backend for a luxury real estate application, designed
 - **BCrypt**: For password encryption.
 - **Mongoose**: ODM (Object Data Modeling) library for MongoDB.
 - **Postman**: API testing and documentation.
+- **Cloudinary**: 
+-**Leaflet**: 
 
 # Server Structure
 
@@ -109,9 +111,13 @@ Solicitud model
 | GET         | `/user/profile`   `/admin/profile`      |          | 200      | 401     | Sends user profile details                                     |
 | PUT         | `/user/:userId` `/admin/:adminId`                 |                              | 200            | 400, 401     | Edits the user profile                                         |
                                          |
-| GET         | `/gameApi`                  |                              | 200            | 401          | Gets game data from API (Search)                               |
-| GET         | `/gameApi/:apiId`           |                              | 200            | 401          | Gets game details from API                                     |
-  
+| PATCH        | `/profile/email`  `/profile/username`                |                              | 200            | 401          | Edit email and username of user y admin                              
+| POST         | `/profile/wishlist`           |           | 200            | 401          | create a wishlist with viviendas favourites   
+| DELETE         | `/profile/wishlist/:viviendas:Id`      |          | 200            | 401          | Eliminate favourites                                    
+| GET        | `/solicitudes`                  |               | 200            | 400, 401     | Sends all solicitudes  of one user                                       |
+| POST       | `/solicitudes`          |                | 200            | 401          | Adds new solicitud                                         |
+| DELETE        | `/:solicitudId`                  |       | 200            | 401          | Delete a solicitud                               |
+| GET         | `/solicitudes`           |              | 200            | 401          | Show all solicitudes for admin   
 ## Links
 
 ### Collaborators
