@@ -28,8 +28,8 @@ This project provides the backend for a luxury real estate application, designed
 - **BCrypt**: For password encryption.
 - **Mongoose**: ODM (Object Data Modeling) library for MongoDB.
 - **Postman**: API testing and documentation.
-- **Cloudinary**: 
--**Leaflet**: 
+- **Cloudinary**: Cloud-based image storage and processing service, used for optimizing and serving property images efficiently.
+- **Leaflet**: Interactive mapping library used to display property locations and geospatial data on customizable maps.
 
 # Server Structure
 
@@ -97,27 +97,26 @@ Solicitud model
     }
 ```
 ## API Endpoints (backend routes)
+| HTTP Method | URL                                 | Request Body                         | Success Status | Error Status | Description                                                     |
+|-------------|-------------------------------------|--------------------------------------|----------------|--------------|-----------------------------------------------------------------|
+| **POST**    | `/auth/signup`                      | {username, email, password, image}   | 201            | 400          | Registers the user in the database                              |
+| **POST**    | `/auth/login`                       | {username, password}                | 200            | 400          | Validates credentials, creates, and sends token                 |
+| **GET**     | `/auth/verify`                      |                                      | 200            | 401          | Verifies the user token                                         |
+| **GET**     | `/vivienda`                         |                                      | 200            | 400          | Shows all vivienda documents in the database                    |
+| **POST**    | `/vivienda/addVivienda`             | {apiId}                              | 201            | 400          | Creates a new vivienda document                                 |
+| **GET**     | `/vivienda/:viviendasId`            |                                      | 200            | 400, 401     | Shows details of a specific vivienda                            |
+| **PUT**     | `/vivienda/:viviendasId/edit`       | {fields to update}                   | 200            | 400, 401     | Edits vivienda document                                         |
+| **DELETE**  | `/vivienda/:viviendasId`            |                                      | 200            | 401          | Deletes a vivienda document                                     |
+| **GET**     | `/user/profile` or `/admin/profile` |                                      | 200            | 401          | Retrieves user or admin profile details                         |
+| **PUT**     | `/user/:userId` or `/admin/:adminId`| {fields to update}                   | 200            | 400, 401     | Edits the user or admin profile                                 |
+| **PATCH**   | `/profile/email` or `/profile/username` | {new email or username}          | 200            | 401          | Edits email and username of user or admin                       |
+| **POST**    | `/profile/wishlist`                 | {viviendaId}                         | 200            | 401          | Adds a vivienda to the wishlist of favorites                    |
+| **DELETE**  | `/profile/wishlist/:viviendasId`    |                                      | 200            | 401          | Removes a vivienda from the wishlist of favorites               |
+| **GET**     | `/solicitudes`                      |                                      | 200            | 400, 401     | Retrieves all solicitudes for a user                            |
+| **POST**    | `/solicitudes`                      | {solicitud details}                  | 200            | 401          | Adds a new solicitud                                            |
+| **DELETE**  | `/solicitudes/:solicitudId`         |                                      | 200            | 401          | Deletes a specific solicitud                                    |
+| **GET**     | `/solicitudes/admin`                |                                      | 200            | 401          | Shows all solicitudes for admin review                          |
 
-| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                    |
-| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | -------------------------------------------------------------- |
-| POST        | `/auth/signup`     | {username, email, password, image}   | 201      | 400     | Registers the user in the Database                             |
-| POST        | `/auth/login`               | {username, password}         | 200            | 400          | Validates credentials, creates and sends Token                 |
-| GET         | `/auth/verify`              |                              | 200            | 401          | Verifies the user Token                                        |
-| GET         | `/vivienda`                 |                              | 200            | 400          | Show vivienda in the DB                   |
-| POST        | `/vivienda/addVivienda`      | {apiId}                      | 201            | 400          | Creates a new vivienda Document                                    |
-| GET         | `/vivienda/:viviendasId`             |                  | 200            | 400, 401     | Show details of one vivienda                                         |
-| PUT         | `/vivienda/:viviendasId/edit`     |                              | 200            | 400, 401     | Edits vivienda document                                            |
-| DELETE      | `/vivienda/:viviendasId`             |                              | 200            | 401          | Deletes vivienda document                                          |
-| GET         | `/user/profile`   `/admin/profile`      |          | 200      | 401     | Sends user profile details                                     |
-| PUT         | `/user/:userId` `/admin/:adminId`                 |                              | 200            | 400, 401     | Edits the user profile                                         |
-                                         |
-| PATCH        | `/profile/email`  `/profile/username`                |                              | 200            | 401          | Edit email and username of user y admin                              
-| POST         | `/profile/wishlist`           |           | 200            | 401          | create a wishlist with viviendas favourites   
-| DELETE         | `/profile/wishlist/:viviendas:Id`      |          | 200            | 401          | Eliminate favourites                                    
-| GET        | `/solicitudes`                  |               | 200            | 400, 401     | Sends all solicitudes  of one user                                       |
-| POST       | `/solicitudes`          |                | 200            | 401          | Adds new solicitud                                         |
-| DELETE        | `/:solicitudId`                  |       | 200            | 401          | Delete a solicitud                               |
-| GET         | `/solicitudes`           |              | 200            | 401          | Show all solicitudes for admin   
 ## Links
 
 ### Collaborators
